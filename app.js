@@ -1,107 +1,77 @@
-//Book Constructor
+//listen for submit
+// document.getElementById('loan-form').addEventListener('submit',function(){
+    
+//     //hide result
+//     document.getElementById('results').style.display = 'none';
 
-function Book(title, author, isbn) {
-    this.title = title;
-    this.author = author;
-    this.isbn = isbn;
-}
+//     //show result
+//     document.getElementById('loading').style.display = 'block';
+//     settimeout(calculteResults,2000);
+//     e.preventDefault();
+// });
 
+document.getElementById('loan-form').addEventListener('submit',calculteResults);
+//calculte Results
+function calculteResults(e){
+    console.log('calculating');
+    //Ui vars
+    const amount = document.getElementById('amount');
+    const interest = document.getElementById('interest');
+    const years = document.getElementById('years');
+    const monthlyPayment = document.getElementById('monthly-payment');
+    const totalPayment = document.getElementById('total-payment');
+    const totalInterest = document.getElementById('total-interest');
 
-//Ui contructor
-function UI() {
+    const princpal = parseFloat(amount.value)
+    const calcultedInterest = parseFloat(interest.value)/100/12;
+    const calcultedPayments = parseFloat(years.value)*12;
+//compute monthly payment
+const x = Math.pow(1+calcultedInterest,calcultedPayments);
+const monthly = (princpal*x*calcultedInterest)/(x-1);
+    if(isFinite(monthly)){
+        monthlyPayment.value = monthly.toFixed(2);
+        totalPayment.value = (monthly*calcultedPayments).toFixed(2);
+        totalInterest.value = ((monthly*calcultedPayments)- princpal).toFixed(2);
+    
+        document.getElementById('results').style.display = 'block';
+        document.getElementById('loading').style.display = 'none';
 
-}
-//add book to the list
-UI.prototype.addBookToList = function (book) {
-    const list = document.getElementById('book-list');
-    //create tr element
-    const row = document.createElement('tr');
-    row.innerHTML = `
- <td>${book.title}</td>
- <td>${book.author}</td>
- <td>${book.isbn}</td> 
- <td><a href="#" class ="delete" >X</a></td> 
- `;
-    list.appendChild(row);
-    console.log(row);
-
-}
-
-//show Alert
-UI.prototype.showAlert = function(message,className){
-
-    //create div
-    const div = document.createElement('div');
-    //Add classes
-    div.className = `alert ${className}`;
-    //Add text
-    div.appendChild(document.createTextNode(message));
-    //get parent
-    const container = document.querySelector('.container');
-   //get form
-    const form = document.querySelector('#book-form');
-    //insert alert
-    container.insertBefore(div,form);
-
-    //Timeout after 3 sec
-    setTimeout(function(){
-        document.querySelector('.alert').remove();
-    },3000);
-}
-
-//Delete Book
-UI.prototype.deleteBook = function(target){
-    if(target.className === 'delete'){
-        target.parentElement.parentElement.remove();
     }
+    else{
+       // console.log('please check your no');
+       showError('please check your numbers');   
+    }
+
+    e.preventDefault();
 }
 
-//Clear Fields
-UI.prototype.clearFields = function () {
-    document.getElementById('title').value = '';
-    document.getElementById('author').value = '';
-    document.getElementById('isbn').value = '';
+//show Error
+function showError(error){
 
+document.getElementById('results').style.display = 'none';
+document.getElementById('loading').style.display = 'none';
+
+//create a div
+const errorDiv = document.createElement('div');
+
+//get elements
+const card = document.querySelector('.card');
+const heading = document.querySelector('.heading');
+
+//Add class
+errorDiv.className = 'alert alert-danger';
+//create text node and append to div 
+
+errorDiv.appendChild(document.createTextNode(error));
+
+//inert error above heading
+card.insertBefore(errorDiv,heading);
+
+//clear error after 3 second
+setTimeout(clearError,3000);
 }
 
-
-//Event Listner
-document.getElementById('book-form').addEventListener('submit',
-    function (e) {
-        //get form value
-        const title = document.getElementById('title').value;
-        const author = document.getElementById('author').value;
-        const isbn = document.getElementById('isbn').value;
-
-        //instantiate book
-        const book = new Book(title, author, isbn);
-
-        // //instantiate Ui
-        const ui = new UI();
-
-        //validate
-        if (title === '' || author === '' || isbn === '') {
-            //Error alert
-            ui.showAlert('please fill all fields','error');
-        }
-        else {
-            //add book to list
-            ui.addBookToList(book);
-            //show success
-            ui.showAlert('Book Added!','success');            
-            //clear fields
-            ui.clearFields();
-        }
-        e.preventDefault();
-    })
-
-    //Event listner delete
-    document.getElementById('book-list').addEventListener('click',function(e){
-        console.log(123);
-        const ui = new UI();
-        ui.deleteBook(e.target);
-        //show message
-        ui.showAlert('Book Removed!','success');
-
-        e.preventDefault();
-    })
+//clear error
+function clearError(){
+    document.querySelector('.alert').remove();
+}

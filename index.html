@@ -1,66 +1,95 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.css" />
-    
-    <style>
-        .success, .error{
-            color: white;
-            padding: 5px;
-            margin: 5px 0 15 px 0;
-        }
-        .success{
-            background: green;
-        }
-        .error{
-            background: red;
-        }
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
+        crossorigin="anonymous">
+
+    <title>Hello, world!</title>
+    <style>
+        #loading, #results{
+            display: none  ;
+        }
     </style>
-    
-    <title>Book List</title>
 </head>
 
-<body>
+<body class="bg-dark">
     <div class="container">
-        <h1>Add Book</h1>
-        <form id="book-form">
-            <div>
-                <label for="title">Title</label>
-                <input type="text" id="title" class="u-full-width">
+        <div class="row">
+            <div class="col-md-6 mx auto">
+                <div class="card card-body text-center mt-5">
+                    <h1 class="heading display-5 pb-3">Loan Calculator</h1>
+                    <form id="loan-form" >
+                        <div class="form-group">
+                            <div class="input-group">
+                                <span class="input-group-addon">$</span>
+                                <input type="number" class='form-control' id="amount" placeholder="Loan Amount">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="input-group">
+                                <span class="input-group-addon">%</span>
+                                <input type="number" class='form-control' id="interest" placeholder="interest">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <input type="number" class='form-control' id="years" placeholder="years to Repay">
+
+                        </div>
+                        <div class="form-group">
+                            <input type="submit" value='Calculate' class="btn btn-dark btn-block " placeholder="years to Repay">
+
+                        </div>
+                    </form>
+                    <!--LoADER HERE-->
+                    <div id="loading">
+                        <img src="img/loading.gif" alt ="">
+                    </div>
+                    <!--RESEULT HERE-->
+                    <div id="results" class="pt-4">
+                        <h5>Results</h5>
+                        <div class="form-group">
+                            <div class="input-group">
+                                <span class="input-group-addon">Monthly Payment</span>
+                                <input type="number" class='form-control' id="monthly-payment" disabled>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                                <div class="input-group">
+                                    <span class="input-group-addon">Total Payment</span>
+                                    <input type="number" class='form-control' id="total-payment" disabled>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                    <div class="input-group">
+                                        <span class="input-group-addon">Total interest</span>
+                                        <input type="number" class='form-control' id="total-interest" disabled>
+                                    </div>
+                                </div>  
+                    </div>
+
+                </div>
+
             </div>
-            <div>
-                <label for="author">Author</label>
-                <input type="text" id="author" class="u-full-width">
-            </div>
-            <div>
-                <label for="isbn">ISBN#</label>
-                <input type="text" id="isbn" class="u-full-width">
-            </div>
-            <div>
-                <input type="submit" value="Sumbit" class="u-full-width">
-            </div>
-        </form>
-        <hr>
-        <table class="u-full-width">
-          <thead>
-              <tr>
-                  <th>Title</th>
-                  <th>Author</th>
-                  <th>ISBN</th>
-                  <th></th>
-              </tr>
-          </thead>  
-          <tbody id="book-list"></tbody>
-        </table>
+        </div>
+
     </div>
 
-<!-- <script src="app.js"></script> -->
-<script src="appes6.js"></script>
-</body>
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
+        crossorigin="anonymous"></script>
+        <script src="app.js"></script>
+    </body>
 
 </html>
